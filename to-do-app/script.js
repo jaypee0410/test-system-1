@@ -21,26 +21,38 @@ document.addEventListener('DOMContentLoaded', () => {
             saveTasks();
         } else if (e.target.tagName === 'LI') {
             e.target.classList.toggle('completed');
-            saveTasks();
+            const taskElement = e.target;
+            const taskIndex = Array.from(taskList.children).indexOf(taskElement);
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const task = tasks[taskIndex];
+            if (task) {
+                task.completed = taskElement.classList.contains('completed');
+                task.finishDate = task.completed ? new Date().toLocaleString() : null;
+                saveTasks();
+            }
         }
     });
 
     function addTask(taskText) {
+        const currentDate = new Date();
+        const dateString = currentDate.toLocaleString();
         const li = document.createElement('li');
-        li.textContent = taskText;
+        li.textContent = `${taskText} - Added: ${dateString}`;
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete');
         li.appendChild(deleteButton);
         taskList.appendChild(li);
     }
+    
 
     function saveTasks() {
         const tasks = [];
         taskList.querySelectorAll('li').forEach(li => {
             tasks.push({
                 text: li.firstChild.textContent,
-                completed: li.classList.contains('completed')
+                completed: li.classList.contains('completed'),
+                finishDate: li.classList.contains('completed') ? new Date().toLocaleString() : null
             });
         });
         localStorage.setItem('tasks', JSON.stringify(tasks));
