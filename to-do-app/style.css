@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Tahoma, Verdana;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,6 +55,8 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: grab;
+    transition: transform 0.2s ease-in-out;
 }
 
 li.completed {
@@ -73,4 +75,20 @@ li button {
 
 li button:hover {
     background: #c82333;
+}
+
+.hamburger {
+    cursor: grab;
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.hamburger:hover {
+    background-color: #ddd;
+    border-radius: 50%;
+}
+
+.task-moving {
+    transition: none;
 }
