@@ -25,5 +25,5 @@ int main() {
     myDog.eat();   // Inherited from Animal class
     myDog.bark();  // Defined in Dog class
 
-    return m0;
+    return 0;
 }
